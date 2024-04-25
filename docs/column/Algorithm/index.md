@@ -285,7 +285,7 @@ object 表示非原始类型，也就是除 number，string，boolean，symbol�
   str = "s"; // 报错，不能将类型“"s"”分配给类型 z。
   ```
 
-## 
+## interface
 
 是一种声明对象类型的方式，`interface`的所有功能都在`type`中可用，他们之间可以任意选择，主要区别在于无法重新打开类型以添加新属性，而接口始终可扩展。
 
