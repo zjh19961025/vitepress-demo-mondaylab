@@ -7,7 +7,7 @@ export const globals = [
 ]
 export default defineConfig({
   base: '/vitepress-demo-mondaylab/',
-  title: 'mondaylab-demo-blog',
+  title: '小辉同学',
   description: "Default Theme",
   themeConfig: {
     logo: './avatar.jpg',// 表示docs/public/avartar.png

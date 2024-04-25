@@ -11,7 +11,7 @@ editLink: true
 lastUpdated: true
 
 hero:
-    name: 不会切肉的小辉同学
+    name: 小辉同学
     text: Just do it.
     tagline: /斜杠青年/人间清醒/工具控/
     image:
