@@ -13,7 +13,7 @@ New API `link` has been added in ^(2.2.1), you can use `type` API to set the the
 :::tip
 
 Text button has been upgraded with a new design since <el-tag round effect="plain" size="small">2.2.0</el-tag> , if you want to use the
-previous version like button, you might want to check [Link](./link.md#basic) out.
+previous version like button, you might want to check  out.
 
 The API is also updated, because the `type` attribute also represents the button's style. So we have to make a new API
 `text: boolean` for text button.
