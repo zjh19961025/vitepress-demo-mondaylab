@@ -13,7 +13,7 @@ export default defineConfig({
     logo: './avatar.jpg',// 表示docs/public/avartar.png
     nav:nav,
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/zjh19961025' }
     ],
     search: {
       provider: 'local' // 开启本地搜索
