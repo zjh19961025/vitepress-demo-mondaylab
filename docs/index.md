@@ -38,24 +38,17 @@ features:
     details: 热爱一切美学，喜欢用各种设计工具造图。
   - icon: 🧩
     title: 斜杆青年
+    link: /column/views/study
     details: 是个平平无奇但是又很热爱学习的斜杆青年。
 ---
 <!-- 自定义组件 -->
 <script setup>
 import MyComponent from './.vitepress/components/home.vue';
-import { ref } from 'vue';
-const count = ref(0);
 </script>
-<MyComponent/>
-<div>{{count}}</div>
 
-:::warning
+[//]: # (<MyComponent/>)
 
-`type="text"` has been **deprecated**, and **will be** removed in ^(3.0.0), consider switching to new API.
 
-New API `link` has been added in ^(2.2.1), you can use `type` API to set the theme of your link button
-
-:::
 
 
 
