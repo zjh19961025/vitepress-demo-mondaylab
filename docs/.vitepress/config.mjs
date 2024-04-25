@@ -10,7 +10,7 @@ export default defineConfig({
   title: '小辉同学',
   description: "Default Theme",
   themeConfig: {
-    logo: './avatar.jpg',// 表示docs/public/avartar.png
+    logo: './avatar.png',// 表示docs/public/avartar.png
     nav:nav,
     socialLinks: [
       { icon: 'github', link: 'https://github.com/zjh19961025' }
