@@ -38,6 +38,10 @@ export const nav = [
             {
                 text: 'TS',
                 link: '/column/Algorithm/' // 对应docs/column/Algorithm下的idnex.md文件
+            },
+            {
+                text: 'Vue3',
+                link: '/column/Vue3/' // 对应docs/column/Vue3.md文件
             }
         ]
     }
