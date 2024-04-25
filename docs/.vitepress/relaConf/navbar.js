@@ -21,14 +21,14 @@ export const nav = [
     {
         text: '关于我',
         items: [
-            { text: 'Github', link: 'https://github.com/Jacqueline712' },
+            { text: 'Github', link: 'https://github.com/zjh19961025' },
             {
                 text: 'CSDN',
                 link: 'https://blog.csdn.net/weixin_44326167?type=blog'
             },
             {
                 text: 'Gitee',
-                link: 'https://pzfqk98jn1.feishu.cn/wiki/space/7193915595975491587?ccm_open_type=lark_wiki_spaceLink'
+                link: 'https://gitee.com/zhujinhuilol'
             }
         ]
     },
@@ -36,7 +36,7 @@ export const nav = [
         text: '前端开发',
         items: [
             {
-                text: '数据结构与算法',
+                text: 'TS',
                 link: '/column/Algorithm/' // 对应docs/column/Algorithm下的idnex.md文件
             }
         ]
