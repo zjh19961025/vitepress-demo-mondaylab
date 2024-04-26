@@ -12,4 +12,12 @@ export const sidebar = {
             ],
         },
     ],
+    '/interview/':[
+        {
+            text: '',
+            items: [
+                { text: 'Vue3.0性能提升', link: '/interview/index' },
+            ],
+        },
+    ]
 }
