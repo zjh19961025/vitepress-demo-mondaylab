@@ -21,15 +21,18 @@ export const nav = [
     {
         text: '关于我',
         items: [
-            { text: 'Github', link: 'https://github.com/zjh19961025' },
             {
-                text: 'CSDN',
-                link: 'https://blog.csdn.net/weixin_44326167?type=blog'
+                text: 'Github',
+                link: 'https://github.com/zjh19961025'
             },
             {
                 text: 'Gitee',
                 link: 'https://gitee.com/zhujinhuilol'
-            }
+            },
+            {
+                text: 'CSDN',
+                link: 'https://blog.csdn.net/weixin_44326167?type=blog'
+            },
         ]
     },
     {
