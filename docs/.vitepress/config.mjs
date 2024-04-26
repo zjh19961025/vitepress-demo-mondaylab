@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { nav } from './relaConf';
+import {sidebar} from './relaConf/sidebar.js'
 
 // https://vitepress.dev/reference/site-config
 
@@ -18,6 +19,7 @@ export default defineConfig({
     search: {
       provider: 'local' // 开启本地搜索
     },
+    sidebar
     // i18nRouting: true //开启中英文
   },
   enhanceApp: ({ app }) => {

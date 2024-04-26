@@ -37,11 +37,11 @@ export const nav = [
         items: [
             {
                 text: 'TS',
-                link: '/column/Algorithm/' // 对应docs/column/Algorithm下的idnex.md文件
+                link: '/column/index' // 对应docs/column/Algorithm下的idnex.md文件
             },
             {
                 text: 'Vue3',
-                link: '/column/Vue3/' // 对应docs/column/Vue3.md文件
+                link: '/Vue3/index' // 对应docs/column/Vue3.md文件
             }
         ]
     }
