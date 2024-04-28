@@ -17,6 +17,7 @@ export const sidebar = {
             text: '',
             items: [
                 { text: 'Vue3.0性能提升', link: '/interview/index' },
+                { text: 'Vue3.0 Proxy', link: '/interview/proxy' },
             ],
         },
     ]
