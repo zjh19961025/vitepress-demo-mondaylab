@@ -2,16 +2,24 @@
 
 ##### 自定义容器
 
+::: info
+This is an info box.
+:::
+
 ::: tip
-This is a tip
+This is a tip.
 :::
 
 ::: warning
-This is a warning
+This is a warning.
 :::
 
 ::: danger
-This is a dangerous warning
+This is a dangerous warning.
+:::
+
+::: details
+This is a details block.
 :::
 ##### 在语法块中的语法高亮
 VitePress 通过 Prism来实现Markdown中语法块的语法高亮，使用了有色文本。 Prism 支持大量的编程语言，你需要做的只是在代码块的开始反引号后附加一个有效的语言别名：

@@ -18,6 +18,8 @@ export const sidebar = {
             items: [
                 { text: 'Vue3.0性能提升', link: '/interview/index' },
                 { text: 'Vue3.0 Proxy', link: '/interview/proxy' },
+                { text: 'webpack的理解', link: '/interview/webpack' },
+                { text: 'new Set和new Map的区别', link: '/interview/setAndMap' },
             ],
         },
     ]
