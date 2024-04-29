@@ -31,5 +31,13 @@ export const sidebar = {
                 { text: 'new Set和new Map的区别', link: '/interview/setAndMap' },
             ],
         },
+    ],
+    '/development/':[
+        {
+            text: '',
+            items: [
+                { text: 'Vue指令', link: '/development/developmentTips' },
+            ],
+        },
     ]
 }
