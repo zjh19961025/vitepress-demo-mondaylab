@@ -12,6 +12,15 @@ export const sidebar = {
             ],
         },
     ],
+    '/Vue3/':[
+        {
+            text: '',
+            items: [
+                { text: 'API不在script内写入setup', link: '/Vue3/index-outside' },
+                { text: 'API在script内写入setup', link: '/Vue3/index-inside' },
+            ]
+        }
+    ],
     '/interview/':[
         {
             text: '',

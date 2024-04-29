@@ -19,7 +19,11 @@ export default defineConfig({
     search: {
       provider: 'local' // 开启本地搜索
     },
-    sidebar
+    sidebar,
+    footer: {
+      message: 'Follow Me',
+      copyright: 'Copyright © 2024-present zhujh'
+    }
     // i18nRouting: true //开启中英文
   },
   enhanceApp: ({ app }) => {

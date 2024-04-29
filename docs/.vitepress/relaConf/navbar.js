@@ -44,7 +44,7 @@ export const nav = [
             },
             {
                 text: 'Vue3',
-                link: '/Vue3/index' // 对应docs/column/Vue3.md文件
+                link: '/Vue3/index-outside' // 对应docs/column/Vue3.md文件
             },
             {
                 text: '前端面试系列',
