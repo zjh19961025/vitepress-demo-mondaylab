@@ -36,7 +36,8 @@ export const sidebar = {
         {
             text: '',
             items: [
-                { text: 'Vue指令', link: '/development/developmentTips' },
+                { text: 'Vue指令', link: '/development/developmentTips_instruct' },
+                { text: 'Vue组件数据双向绑定', link: '/development/developmentTips_dataBind' },
             ],
         },
     ]

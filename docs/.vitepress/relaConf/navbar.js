@@ -52,7 +52,7 @@ export const nav = [
             },
             {
                 text: '开发积累',
-                link: '/development/developmentTips' // 对应docs/column/Vue3.md文件
+                link: '/development/developmentTips_instruct' // 对应docs/column/Vue3.md文件
             }
         ]
     }
