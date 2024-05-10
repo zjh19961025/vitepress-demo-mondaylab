@@ -1,5 +1,5 @@
 <template>
-  <div class="home-wrapper">
+  <div class="home-wrapper" @click="getWisdomList">
     <div style="display: flex">
       <img src="../../public/avatar.png" class="avatar" />
       <h1 id="title" class="title"></h1>
@@ -30,6 +30,13 @@ const wisdomList = [
 
 let typed;
 onMounted(() => {
+  getWisdomList()
+});
+onBeforeUnmount(() => {
+  typed.destroy();
+});
+
+const getWisdomList = ()=>{
   try {
     typed = new Typed("#title", {
       strings: [wisdomList[parseInt(Math.random() * 10)]],
@@ -38,10 +45,7 @@ onMounted(() => {
   } catch (e) {
     console.log(e)
   }
-});
-onBeforeUnmount(() => {
-  typed.destroy();
-});
+}
 </script>
 
 <style scoped>
@@ -58,8 +62,8 @@ onBeforeUnmount(() => {
   z-index: 99;
   position: fixed;
   left: 30px;
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   cursor: pointer;
   border-radius: 100%;
   box-shadow: 0px 0px 30px 8px rgba(255, 255, 255, 0.82);
@@ -70,10 +74,10 @@ onBeforeUnmount(() => {
 }
  .title {
   color: #ffffff;
-  font-size: 40px;
+  font-size: 1rem;
   z-index: 999;
   position: fixed;
   left: 130px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 </style>
