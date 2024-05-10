@@ -37,20 +37,20 @@ export default {
 
         // 自身的粒子
         self.particles = [];   //烟花爆炸屑的数字
-        self.partCount = 200;  //烟花的数量
+        self.partCount = 100;  //烟花的数量
         self.fireworks = [];   //烟花数组
         self.mx = self.cw / 2; //画布宽的一半
-        self.my = self.ch / 2; //画布高的一半
+        self.my = self.ch / 2.3; //画布高的一半
         self.currentHue = 170;  // 当前色调
-        self.partSpeed = 5;    // 烟花散开的速度
+        self.partSpeed = 4;    // 烟花散开的速度
         self.partSpeedVariance = 10; //加速度
         self.partWind = 50;    // 烟花散开之后的一个曲线值
         self.partFriction = 5; // 摩擦力
         self.partGravity = 1;  // 重力
         self.hueMin = 1;     // 最小色调
         self.hueMax = 255;     // 最大色调
-        self.fworkSpeed = 2;   // 烟花子弹的速度
-        self.fworkAccel = 4;   //烟花子弹加速度
+        self.fworkSpeed = 1;   // 烟花子弹的速度
+        self.fworkAccel = 1;   //烟花子弹加速度
         self.hueVariance = 30; //色调的多样性
         self.flickerDensity = 20; //闪光密度
         self.showShockwave = false; //显示冲击波
@@ -384,7 +384,7 @@ export default {
       var initialLaunchCount = 10;
       setInterval(function () {
         self.fireworks.push(new Firework(self.cw / 2, self.ch, rand(50, self.cw - 50), rand(50, self.ch / 2) - 50));
-      },500);
+      },800);
     }
     var fworks = new Fireworks();
   }
@@ -396,6 +396,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  overflow-y: hidden;
 }
 
 body {
@@ -421,7 +422,7 @@ a:hover {
   left: 0;
   top: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 20;
 }
 
 canvas {
@@ -442,7 +443,7 @@ canvas:active {
   left: 0;
   position: absolute;
   width: 100%;
-  z-index: 1;
+  z-index: 999;
 }
 
 #mountains1 {

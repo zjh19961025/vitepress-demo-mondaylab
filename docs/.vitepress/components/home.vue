@@ -1,11 +1,12 @@
 <template>
-  <div class="home-wrapper" @click="getWisdomList">
+  <div class="home-wrapper">
     <div style="display: flex">
       <img src="../../public/avatar.png" class="avatar" />
       <h1 id="title" class="title"></h1>
     </div>
     <canvasStar></canvasStar>
     <mouse class="mouse"></mouse>
+    <div class="fight">加油，冲鸭！</div>
   </div>
 </template>
 
@@ -29,13 +30,18 @@ const wisdomList = [
 ]
 
 let typed;
+let timer = null
 onMounted(() => {
   getWisdomList()
+  timer = setInterval(()=>{
+    getWisdomList()
+  },5000)
 });
 onBeforeUnmount(() => {
   typed.destroy();
+  clearInterval(timer)
+  timer = null
 });
-
 const getWisdomList = ()=>{
   try {
     typed = new Typed("#title", {
@@ -56,7 +62,14 @@ const getWisdomList = ()=>{
 .mouse{
   position: fixed;
   right: 30px;
-  bottom: 20px;
+  bottom: 40px;
+}
+.fight{
+  color: #fff;
+  position: fixed;
+  right: 55px;
+  bottom: 10px;
+  z-index: 9999;
 }
 .avatar {
   z-index: 99;
