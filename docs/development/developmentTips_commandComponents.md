@@ -185,4 +185,71 @@
    vue.$openInvite()
    ```
 
-   
+
+## Vue3
+
+注意：需要安装以下两个插件用来支持jsx语法以及支持js内编写样式
+
+- @vue/babel-plugin-jsx   npm install --save@vue/babel-plugin-jsx
+- @styils/vue npm install stylus stylus-loader --save-dev
+
+组件代码
+
+```js
+import {createApp} from 'vue'
+import { styled } from '@styils/vue'
+ 
+const mask = styled('div', {
+    background: "argb(0,0,0,0.8)",
+    position:"absolute",
+    top:0,
+    left:0,
+    bottom:0,
+  })
+  
+ 
+const dataTemplate={
+   props: {
+    mag:{
+        type:String,
+        requied:true
+    }
+   },
+   render(cxt) {
+      const {$props,$emit}=cxt
+      return (
+        <mask class="mask">{$props}
+          <div class="bnt" onClick={$emit('onClick')}>信息内容</div>
+       </mask>
+      )
+   }
+}
+ 
+export default function toast(msg,clickHandler){
+    const app=createApp(dataTemplate,{
+        msg,
+        onClick(){
+            clickHandler && clickHandler(()=>{
+                app.unmount();
+                div.remove();
+            });
+        }
+    })
+    const div=document.createElement('div')
+    document.body.append(div)
+    app.mount(div)
+}
+```
+
+组件使用
+
+```js
+import toast from "@/components/toast.js"
+const clickHandle = () => {
+	// 关闭弹窗
+  toast("传递给B组件的数据",()=> {
+    hide() // 关闭弹窗
+  })
+}
+```
+
