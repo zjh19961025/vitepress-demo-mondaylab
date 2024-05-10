@@ -43,10 +43,10 @@ features:
 ---
 <!-- 自定义组件 -->
 <script setup>
-import MyComponent from './.vitepress/components/home.vue';
+import MyComponent from './.vitepress/components/love.vue';
 </script>
 
-[//]: # (<MyComponent/>)
+<MyComponent/>
 
 
 
