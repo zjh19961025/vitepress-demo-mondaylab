@@ -330,24 +330,6 @@ export default {
         });
 
         var mousemoveHandler;
-        self.canvas.addEventListener('mousedown', function (e) {
-          var randLaunch = rand(0, 5);
-          self.mx = e.clientX - self.canvas.getBoundingClientRect().left;
-          self.my = e.clientY - self.canvas.getBoundingClientRect().top;
-          self.currentHue = rand(self.hueMin, self.hueMax);
-          self.createFireworks(self.cw / 2, self.ch, self.mx, self.my);
-
-          mousemoveHandler = function (e) {
-            var randLaunch = rand(0, 5);
-            self.mx = e.clientX - self.canvas.getBoundingClientRect().left;
-            self.my = e.clientY - self.canvas.getBoundingClientRect().top;
-            self.currentHue = rand(self.hueMin, self.hueMax);
-            self.createFireworks(self.cw / 2, self.ch, self.mx, self.my);
-          };
-
-          self.canvas.addEventListener('mousemove', mousemoveHandler);
-        });
-
         self.canvas.addEventListener('mouseup', function () {
           self.canvas.removeEventListener('mousemove', mousemoveHandler);
         });

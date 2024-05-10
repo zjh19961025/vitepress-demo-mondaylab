@@ -1,6 +1,6 @@
 <script>
 import heartAnimation from './utils';
-heartAnimation(window,document,{})
+heartAnimation()
 export default {
   name: "love"
 }

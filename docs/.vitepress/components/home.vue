@@ -15,7 +15,6 @@ import canvasStar from "./components/canvas.vue"
 import mouse from './components/mouse.vue'
 import Typed from "typed.js";
 import { onMounted, onBeforeUnmount } from "vue";
-
 const wisdomList = [
   "强者总是尝试改变，弱者总是说命中注定…更弱的人说不去做都知道会失败。",
   "成功的秘诀在于坚持到最后一刻。",

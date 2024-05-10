@@ -1,4 +1,4 @@
-export default function heartAnimation(e, t, a) {
+export default function heartAnimation(e=window, t = document, a={}) {
     const s = [];
     function animationLoop() {
         for (let i = 0; i < s.length; i++) {
