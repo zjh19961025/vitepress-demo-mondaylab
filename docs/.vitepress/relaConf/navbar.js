@@ -10,7 +10,7 @@ export const nav = [
         items: [
             {
                 text: '大江南北游记',
-                link: '/column/Travel/' // 表示docs/column/Travel/guide.md
+                link: '/Travel/index' // 表示docs/column/Travel/guide.md
             },
             {
                 text: '所思·所想',
