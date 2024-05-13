@@ -40,6 +40,8 @@ export const sidebar = {
                 { text: 'Vue组件数据双向绑定', link: '/development/developmentTips_dataBind' },
                 { text: 'Vue封装命令式组件', link: '/development/developmentTips_commandComponents' },
                 { text: 'Vue快速注册一堆组件', link: '/development/developmentTips_fastComponents' },
+                { text: '提高代码可读性', link: '/development/developmentTips_codeReadability' },
+                { text: 'pc端高德地图弹窗组件', link: '/development/developmentTips_AMapDialog' },
             ],
         },
     ]
