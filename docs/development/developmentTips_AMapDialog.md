@@ -18,7 +18,6 @@
   <div class="avue-map">
     <el-input
       v-model="poi.formattedAddress"
-      :size="size"
       :placeholder="placeholder"
     >
       <el-button
@@ -47,6 +46,7 @@
           :readonly="disabled"
           clearable
           placeholder="输入关键字选取地点"
+          @input="addElementNode"
         />
         <div class="avue-map__content-box">
           <div
@@ -56,9 +56,10 @@
           />
           <div
             id="map__result"
-            style="pointer-events: none;"
             class="avue-map__content-result"
-          />
+          >
+            <h3 class="w100 tc">暂无搜索结果</h3>
+          </div>
         </div>
       </div>
       <div slot="footer" class="dialog-footer">
@@ -73,8 +74,10 @@ import { addAMap, removeAMap } from './config'
 export default {
   name: 'AvueMap',
   props: {
-    size: String,
-    placeholder: String,
+    placeholder: {
+      type: String,
+      default: ''
+    },
     disabled: {
       type: Boolean,
       default: false,
@@ -111,7 +114,7 @@ export default {
     },
     textTitle() {
       return this.disabled ? this.title : (this.poi.name === undefined ? '选择地址' : '重新选择')
-    }
+    },
   },
   watch: {
     value: {
@@ -148,10 +151,18 @@ export default {
           removeAMap()
         }
       },
-      // immediate: true
     }
   },
   methods: {
+    addElementNode() {
+      const resultDiv = document.getElementById('map__result')
+      setTimeout(() => {
+        const searchDiv = document.querySelector('.amap_lib_placeSearch')
+        if (!searchDiv) {
+          resultDiv.innerHTML = `<h3 class="w100 tc">暂无搜索结果</h3>`
+        }
+      }, 200)
+    },
     submitInfo() {
       if (this.testUtils.isNotEmpty(this.poi)) {
         this.$emit('handConfirm', this.poi)
@@ -177,6 +188,7 @@ export default {
     },
     // 获取坐标
     getAddress(R, P) {
+      // eslint-disable-next-line new-cap
       new window.AMap.service('AMap.Geocoder', () => {
         // 回调函数
         const geocoder = new window.AMap.Geocoder({})
@@ -188,16 +200,16 @@ export default {
               latitude: P
             })
             // 自定义点标记内容
-            var markerContent = document.createElement('div')
+            const markerContent = document.createElement('div')
 
             // 点标记中的图标
-            var markerImg = document.createElement('img')
+            const markerImg = document.createElement('img')
             markerImg.src =
               '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png'
             markerContent.appendChild(markerImg)
 
             // 点标记中的文本
-            var markerSpan = document.createElement('span')
+            const markerSpan = document.createElement('span')
             markerSpan.className = 'avue-map__marker'
             markerSpan.innerHTML = this.poi.formattedAddress
             markerContent.appendChild(markerSpan)
@@ -299,7 +311,7 @@ export default {
       margin-bottom: 10px;
     }
     &-box {
-      position: relative;
+      display: flex;
     }
     &-container {
       width: 100%;
@@ -307,9 +319,6 @@ export default {
     }
     &-result {
       display: block !important;
-      position: absolute;
-      top: 0;
-      right: -8px;
       width: 250px;
       height: 450px;
       overflow-y: auto;
@@ -317,7 +326,6 @@ export default {
   }
 }
 </style>
-
 ```
 
 其中引入的js
