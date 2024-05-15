@@ -188,68 +188,228 @@
 
 ## Vue3
 
-注意：需要安装以下两个插件用来支持jsx语法以及支持js内编写样式
+### 一、前言
 
-- @vue/babel-plugin-jsx   npm install --save@vue/babel-plugin-jsx
-- @styils/vue npm install stylus stylus-loader --save-dev
+相信大家都封装过弹窗组件，基本思路都是父组件给子组件传递一个变量，子组件props进行接收，当点击确认或者关闭按钮时，通过emit回传事件供父组件调用。这种封装方式缺点是复用性查、使用频繁时需要定义多份{isVisible、handleSubmit、handleClose}代码，代码冗余，今天分享一种命令式组件封装的方式。
 
-组件代码
+### 二、什么是命令式组件
+
+命令式组件封装是一种将功能封装在组件内部，并通过命令式的方式进行调用和控制的封装方法。在命令式组件封装中，组件负责封装一定的功能逻辑，并提供一组接口或方法，供外部代码调用来触发和控制组件的行为。调用方式大致为：
 
 ```js
-import {createApp} from 'vue'
-import { styled } from '@styils/vue'
- 
-const mask = styled('div', {
-    background: "argb(0,0,0,0.8)",
-    position:"absolute",
-    top:0,
-    left:0,
-    bottom:0,
+MessageBox({
+  title: '这是标题',
+  content: '这是内容',
+  confirmContent: '确定',
+  cancelContent: '取消'
+}).then(() => {
+  console.log('comfirm');
+}).catch(() => {
+  console.log('cancel');
+})
+```
+
+### 三、开始封装
+
+首先创建一个`MessageBox.vue`文件，编写组件样式代码，这里我使用的是`tailwindCSS`进行编写。
+
+```vue
+<Transition name="message-fade">
+  <div class="w-full h-full bg-[rgba(0,0,0,.5)] fixed top-0 left-0 " v-show="isVisible">
+    <div
+      class=" z-10 w-[500px] h-[150px] rounded-md bg-white absolute top-1/2 left-1/2 -ml-[250px] -mt-[75px] p-3 flex flex-col">
+      <div class="flex justify-between items-center h-[30px]">
+        <p class="text-xl">{{ title }}</p>
+        <img :src="CloseIcon" alt="" class="w-4 h-4  cursor-pointer" @click="handleCancel">
+      </div>
+      <div class="flex-[1] py-2">
+        <p class="text-sm text-gray-500">{{ content }}</p>
+      </div>
+      <div class="h-[40px] flex justify-end items-center">
+        <button class="text-white p-1 bg-green-500 w-[50px] text-sm mr-2" @click="handleComfirm">{{ confirmContent
+        }}</button>
+        <button class=" p-1 bg-white text-sm border-[1px] border-solid border-[#ccc] w-[50px]" @click="handleCancel">{{
+          cancelContent }}</button>
+      </div>
+    </div>
+  </div>
+</Transition>
+```
+
+组件过渡样式代码：
+
+```css
+.message-fade-enter-from,
+.message-fade-leave-to {
+  opacity: 0;
+}
+
+.message-fade-enter-active {
+  transition: opacity .2s ease-in;
+}
+
+.message-fade-leave-active {
+  transition: opacity .2s ease-out;
+}
+```
+
+组件需要接收参数有`title`(标题)、`content`(内容)、`confirmContent`(确认按钮文本)、`cancelContent`(取消按钮文本)。
+
+```ts
+interface IProps {
+  title: string
+  content: string
+  confirmContent: string
+  cancelContent: string
+}
+
+defineProps<IProps>()
+```
+
+我们需要定义变量`isVisible`和`type`。`isVisible`用来控制组件的显示和隐藏，`type`用来判断点击的按钮类型(`comfirm / cancel`)。
+
+```js
+const state = reactive({
+  isVisible: false,
+  type: ''
+})
+
+const {isVisible,type} = toRefs(state)
+```
+
+为了能够改变组件的显隐，编写一个`setVisible`方法。
+
+```js
+/**
+ * 改变组件显隐
+ * @param value true(显示) / false(隐藏)
+ */
+const setVisible = (value: boolean) => {
+  isVisible.value = value
+}
+```
+
+给确定按钮和取消按钮添加点击事件。
+
+```js
+/**
+ * 确认
+ */
+const handleComfirm = () => {
+  isVisible.value= false
+  type.value = 'comfirm'
+}
+
+/**
+ * 取消
+ */
+const handleCancel = () => {
+  isVisible.value= false
+  type.value  = 'cancel'
+}
+```
+
+暴露响应式对象和控制显隐函数，供组件实例调用。
+
+```js
+defineExpose({
+  setVisible,
+  state
+})
+```
+
+其次创建`index.ts`文件，由于组件调用方式是通过一个函数进行调用的，并提供`.then`和`.catch`方法，所以需要编写一个函数，该函数返回一个Promise。当调用该函数，创建组件实例，组件进行挂载。
+
+```ts
+/**
+ * 
+ * @param config 组件配置
+ * @returns Promise
+ */
+const MessageBox = (config) => {
+  // 创建组件实例
+  const messageApp = createApp(MessageBoxComponent, config)
+
+  return new Promise((resolve, reject) => {
+    showMessage(messageApp, { resolve, reject })
   })
-  
- 
-const dataTemplate={
-   props: {
-    mag:{
-        type:String,
-        requied:true
+}
+
+/**
+ * 展示组件
+ * @param app 组件实例
+ * @param param1 
+ */
+const showMessage = (app, { resolve, reject }) => {
+  // 创建文档碎片
+  const dFrag = document.createDocumentFragment()
+  // 将组件挂载在文档碎片上
+  const vm = app.mount(dFrag)
+  // 组件显示
+  vm.setVisible(true)
+  document.body.appendChild(dFrag)
+}
+```
+
+目前就可以通过命令式进行调用组件，但是发现了一个问题，我们打开控制台，发现DOM元素不断的变多。原因是因为我们通过函数调用，不断创建新的DOM元素，所以需要对state进行监视，当组件呈隐藏状态，通过type来判断点击的是确定还是取消按钮，如果是点击确定按钮，调用resolve，否则调用reject，最后将组件进行卸载。
+
+```js
+/**
+ * 展示组件
+ * @param app 组件实例
+ * @param param1 
+ */
+const showMessage = (app, { resolve, reject }) => {
+  // 创建文档碎片
+  const dFrag = document.createDocumentFragment()
+  // 将组件挂载在文档碎片上
+  const vm = app.mount(dFrag)
+  // 组件显示
+  vm.setVisible(true)
+  document.body.appendChild(dFrag)
+
+  watch(vm.state, (state) => {
+    if (!state.isVisible) {
+      switch (state.type) {
+        case 'comfirm':
+          resolve()
+          break;
+        case 'cancel':
+          reject()
+          break;
+      }
+      hideMessage(app)
     }
-   },
-   render(cxt) {
-      const {$props,$emit}=cxt
-      return (
-        <mask class="mask">{$props}
-          <div class="bnt" onClick={$emit('onClick')}>信息内容</div>
-       </mask>
-      )
-   }
-}
- 
-export default function toast(msg,clickHandler){
-    const app=createApp(dataTemplate,{
-        msg,
-        onClick(){
-            clickHandler && clickHandler(()=>{
-                app.unmount();
-                div.remove();
-            });
-        }
-    })
-    const div=document.createElement('div')
-    document.body.append(div)
-    app.mount(div)
-}
-```
-
-组件使用
-
-```js
-import toast from "@/components/toast.js"
-const clickHandle = () => {
-	// 关闭弹窗
-  toast("传递给B组件的数据",()=> {
-    hide() // 关闭弹窗
   })
 }
+
+/**
+ * 卸载组件
+ * @param app 组件实例
+ */
+const hideMessage = (app) => {
+  app.unmount()
+}
 ```
+
+### 四、组件调用
+
+我们通过函数进行调用，当前点击确定按钮，执行`.then`里的逻辑，例如发送请求等业务，否则执行`.catch`里的逻辑。
+
+```js
+MessageBox({
+  title: '这是标题',
+  content: '这是内容',
+  confirmContent: '确定',
+  cancelContent: '取消'
+}).then(() => {
+  console.log('comfirm');
+}).catch(() => {
+  console.log('cancel');
+})
+```
+
+### 五、组件扩展
+
+弹窗组件里的content区域不一定是一段提示语，也有可能是一个表单，我们可以在MessageBox.vue(或者可以创建一个新的文件)里编写一个组件函数contentView，该函数接收一个type参数，通过这个type进行判断并利用h函数显示，然后在模板中调用传值即可，这里就不给大家实现了。
 
