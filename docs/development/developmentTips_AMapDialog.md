@@ -16,16 +16,6 @@
 ```vue
 <template>
   <div class="avue-map">
-    <el-input
-      v-model="poi.formattedAddress"
-      :placeholder="placeholder"
-    >
-      <el-button
-        slot="append"
-        @click="open"
-      >{{ textTitle }}</el-button>
-    </el-input>
-
     <el-dialog
       class="avue-map__dialog"
       width="80%"
@@ -72,7 +62,7 @@
 <script>
 import { addAMap, removeAMap } from './config'
 export default {
-  name: 'AvueMap',
+  name: 'MapDialog',
   props: {
     placeholder: {
       type: String,
@@ -111,9 +101,6 @@ export default {
     },
     title() {
       return this.disabled ? '查看坐标' : '选择坐标'
-    },
-    textTitle() {
-      return this.disabled ? this.title : (this.poi.name === undefined ? '选择地址' : '重新选择')
     },
   },
   watch: {
@@ -181,10 +168,8 @@ export default {
     },
     // 清空坐标
     clearMarker() {
-      if (this.marker) {
-        this.marker.setMap(null)
-        this.marker = null
-      }
+      this.marker?.setMap(null)
+      this.marker = null
     },
     // 获取坐标
     getAddress(R, P) {
@@ -220,6 +205,17 @@ export default {
     },
     handleClose() {
       window.poiPicker.clearSearchResults()
+      window.poiPicker.off('poiPicked')
+      window.poiPicker = null
+      this.map.destroy('click')
+      // 解绑地图的点击事件
+      this.map.off('click')
+      // 销毁地图，并清空地图容器
+      this.map.destroy()
+      // 地图对象赋值为null
+      this.map = null
+      // 清除地图容器的 DOM 元素
+      document.getElementById('map__container').remove()
     },
     addClick() {
       this.map.on('click', e => {
@@ -257,25 +253,22 @@ export default {
           searchResultsContainer: 'map__result'
         })
         // 初始化poiPicker
-        this.poiPickerReady(poiPicker)
+        window.poiPicker = poiPicker
+        window.poiPicker.on('poiPicked', this.handlePoiPicked)
       })
     },
-    poiPickerReady(poiPicker) {
-      window.poiPicker = poiPicker
-      // 选取了某个POI
-      poiPicker.on('poiPicked', poiResult => {
-        this.clearMarker()
-        var source = poiResult.source
-        var poi = poiResult.item
-        this.poi = Object.assign(poi, {
-          formattedAddress: poi.name,
-          longitude: poi.location.R,
-          latitude: poi.location.P
-        })
-        if (source !== 'search') {
-          poiPicker.searchByKeyword(poi.name)
-        }
+    handlePoiPicked(poiResult) {
+      this.clearMarker()
+      const source = poiResult.source
+      const poi = poiResult.item
+      this.poi = Object.assign(poi, {
+        formattedAddress: poi.name,
+        longitude: poi.location.R,
+        latitude: poi.location.P,
       })
+      if (source !== 'search') {
+        window.poiPicker.searchByKeyword(poi.name)
+      }
     },
     open() {
       addAMap().then(() => {
