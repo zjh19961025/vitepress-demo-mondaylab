@@ -15,45 +15,34 @@
 
 ```vue
 <template>
-  <div class="avue-map">
+  <div class="AMap">
     <el-dialog
-      class="avue-map__dialog"
+      class="AMap__dialog"
       width="80%"
       append-to-body
       modal-append-to-body
       :title="title"
-      :visible.sync="box"
-      @close="handleClose"
+      :visible.sync="showAMapDialog"
     >
-      <div
-        v-if="box"
-        class="avue-map__content"
-      >
+      <template v-if="showAMapDialog">
         <el-input
           id="map__input"
           v-model="address"
-          class="avue-map__content-input"
+          class="AMap__content-input"
           :readonly="disabled"
           clearable
           placeholder="输入关键字选取地点"
-          @input="addElementNode"
+          @input="handleInput"
         />
-        <div class="avue-map__content-box">
-          <div
-            id="map__container"
-            class="avue-map__content-container"
-            tabindex="0"
-          />
-          <div
-            id="map__result"
-            class="avue-map__content-result"
-          >
+        <div class="AMap__content-box">
+          <div id="map__container" class="AMap__content-container" tabindex="0" />
+          <div id="map__result" class="AMap__content-result">
             <h3 class="w100 tc">暂无搜索结果</h3>
           </div>
         </div>
-      </div>
+      </template>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="box = false">取 消</el-button>
+        <el-button @click="showAMapDialog = false">取 消</el-button>
         <el-button type="primary" @click="submitInfo">确 定</el-button>
       </div>
     </el-dialog>
@@ -61,13 +50,10 @@
 </template>
 <script>
 import { addAMap, removeAMap } from './config'
+import { throttle } from '@/hua5-lib/utils/common-utils'
 export default {
   name: 'MapDialog',
   props: {
-    placeholder: {
-      type: String,
-      default: ''
-    },
     disabled: {
       type: Boolean,
       default: false,
@@ -78,6 +64,7 @@ export default {
         return {}
       }
     },
+    // 双向数据绑定的值 组件使用 place.sync = form.xxx
     place: {
       type: String,
       default: ''
@@ -85,20 +72,14 @@ export default {
   },
   data() {
     return {
-      address: '',
-      poi: {},
-      marker: null,
-      map: null,
-      box: false
+      address: '', // 地址
+      poi: {}, // 地点信息
+      marker: null, // 标记点
+      map: null, // 地图实例
+      showAMapDialog: false // 是否展示地图弹窗
     }
   },
   computed: {
-    longitude() {
-      return this.poi.longitude
-    },
-    latitude() {
-      return this.poi.latitude
-    },
     title() {
       return this.disabled ? '查看坐标' : '选择坐标'
     },
@@ -114,34 +95,52 @@ export default {
     poi: {
       handler(val) {
         this.address = val.formattedAddress
-        this.$emit('update:place', this.poi.formattedAddress)
         this.$emit('input', val)
       },
       deep: true
     },
-    box: {
-      handler() {
-        if (this.box) {
-          this.$nextTick(() =>
-            this.init(() => {
-              if (this.longitude && this.latitude) {
-                this.addMarker(this.longitude, this.latitude)
-                this.getAddress(this.longitude, this.latitude)
-              }
-              if (this.poi.location) {
-                this.addMarker(this.poi.location.lng, this.poi.location.lat)
-                this.getAddress(this.poi.location.lng, this.poi.location.lat)
-              }
-            })
-          )
-        } else {
-          removeAMap()
-        }
-      },
+    showAMapDialog(newValue) {
+      newValue ? this.setupMap() : this.tearDownMap()
     }
   },
   methods: {
-    addElementNode() {
+    // 加载地图
+    setupMap() {
+      this.$nextTick(() =>
+        this.init(() => {
+          // 在打开地图的时候判断是否有地址信息，如果有地址信息需要回显地址信息
+          if (this.poi.longitude && this.poi.latitude) {
+            this.addMarker(this.poi.longitude, this.poi.latitude)
+            this.getAddress(this.longitude, this.poi.latitude)
+          }
+          if (this.poi.location) {
+            this.addMarker(this.poi.location.lng, this.poi.location.lat)
+            this.getAddress(this.poi.location.lng, this.poi.location.lat)
+          }
+        })
+      )
+    },
+    // 卸载地图
+    tearDownMap() {
+      window.poiPicker.clearSearchResults()
+      window.poiPicker.off('poiPicked')
+      window.poiPicker = null
+      this.map.destroy('click')
+      // 解绑地图的点击事件
+      this.map.off('click')
+      // 销毁地图，并清空地图容器
+      this.map.destroy()
+      // 地图对象赋值为null
+      this.map = null
+      // 清除地图容器的 DOM 元素
+      document.getElementById('map__container').remove()
+      removeAMap()
+    },
+    handleInput() {
+      throttle(this.updateSearchResults, 200)
+    },
+    updateSearchResults() {
+      // 控制弹窗右侧搜索结果容器 没有搜索结果的时候显示暂无搜索结果
       const resultDiv = document.getElementById('map__result')
       setTimeout(() => {
         const searchDiv = document.querySelector('.amap_lib_placeSearch')
@@ -150,10 +149,12 @@ export default {
         }
       }, 200)
     },
+    // 提交事件
     submitInfo() {
       if (this.testUtils.isNotEmpty(this.poi)) {
         this.$emit('handConfirm', this.poi)
-        this.box = false
+        this.$emit('update:place', this.poi.formattedAddress) // 触发双向数据绑定的方法
+        this.showAMapDialog = false
       } else {
         this.hua5UI.err('请选择地址')
       }
@@ -186,36 +187,20 @@ export default {
             })
             // 自定义点标记内容
             const markerContent = document.createElement('div')
-
             // 点标记中的图标
             const markerImg = document.createElement('img')
             markerImg.src =
               '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png'
             markerContent.appendChild(markerImg)
-
             // 点标记中的文本
             const markerSpan = document.createElement('span')
-            markerSpan.className = 'avue-map__marker'
+            markerSpan.className = 'AMap__marker'
             markerSpan.innerHTML = this.poi.formattedAddress
             markerContent.appendChild(markerSpan)
             this.marker.setContent(markerContent) // 更新点标记内容
           }
         })
       })
-    },
-    handleClose() {
-      window.poiPicker.clearSearchResults()
-      window.poiPicker.off('poiPicked')
-      window.poiPicker = null
-      this.map.destroy('click')
-      // 解绑地图的点击事件
-      this.map.off('click')
-      // 销毁地图，并清空地图容器
-      this.map.destroy()
-      // 地图对象赋值为null
-      this.map = null
-      // 清除地图容器的 DOM 元素
-      document.getElementById('map__container').remove()
     },
     addClick() {
       this.map.on('click', e => {
@@ -228,10 +213,12 @@ export default {
     },
     init(callback) {
       this.map = new window.AMap.Map('map__container', {
+        // zoom 控制地图缩放比例 有地址信息的时候需要放大地图
+        // center 地图的中心点
         zoom: this.testUtils.isNotEmpty(this.poi) ? 23 : 13,
         center: (() => {
-          if (this.longitude && this.latitude) {
-            return [this.longitude, this.latitude]
+          if (this.poi.longitude && this.poi.latitude) {
+            return [this.poi.longitude, this.poi.latitude]
           }
           if (this.poi.location) {
             return [this.poi.location.lng, this.poi.location.lat]
@@ -244,7 +231,8 @@ export default {
     },
     initPoip() {
       window.AMapUI.loadUI(['misc/PoiPicker'], PoiPicker => {
-        var poiPicker = new PoiPicker({
+        // 初始化poiPicker
+        window.poiPicker = new PoiPicker({
           input: 'map__input',
           placeSearchOptions: {
             map: this.map,
@@ -252,8 +240,6 @@ export default {
           },
           searchResultsContainer: 'map__result'
         })
-        // 初始化poiPicker
-        window.poiPicker = poiPicker
         window.poiPicker.on('poiPicked', this.handlePoiPicked)
       })
     },
@@ -270,9 +256,10 @@ export default {
         window.poiPicker.searchByKeyword(poi.name)
       }
     },
+    // 打开弹窗的时候将动态加载地图需要的js标签
     open() {
       addAMap().then(() => {
-        this.box = true
+        this.showAMapDialog = true
       })
     }
   }
@@ -280,12 +267,7 @@ export default {
 </script>
 
 <style lang="scss">
-.amap-icon img,
-.amap-marker-content img {
-  width: 25px;
-  height: 34px;
-}
-.avue-map {
+.AMap {
   &__marker {
     position: absolute;
     top: -20px;
@@ -295,7 +277,6 @@ export default {
     box-shadow: 1px 1px 1px rgba(10, 10, 10, 0.2);
     white-space: nowrap;
     font-size: 12px;
-    font-family: "";
     background-color: #25a5f7;
     border-radius: 3px;
   }
@@ -319,6 +300,7 @@ export default {
   }
 }
 </style>
+
 ```
 
 其中引入的js
