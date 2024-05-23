@@ -44,6 +44,7 @@ export const sidebar = {
                 { text: 'pc端高德地图弹窗组件', link: '/development/developmentTips_AMapDialog' },
                 { text: '项目中使用阿里图标库', link: '/development/developmentTips_iconFont' },
                 { text: '如何控制并发', link: '/development/developmentTips_concurrence' },
+                { text: '对象数组去重', link: '/development/developmentTips_arrayUnique' },
             ],
         },
     ]
