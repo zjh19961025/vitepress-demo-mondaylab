@@ -46,7 +46,6 @@ export const sidebar = {
                 { text: '如何控制并发', link: '/development/developmentTips_concurrence' },
                 { text: '对象数组去重', link: '/development/developmentTips_arrayUnique' },
                 { text: 'js读取json文件内容渲染数据', link: '/development/developmentTips_json' },
-                { text: 'js读取json文件内容渲染数据', link: '/development/developmentTips_json' },
             ],
         },
     ]
