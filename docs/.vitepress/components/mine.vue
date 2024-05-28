@@ -17,7 +17,6 @@ import passwordCheck from './components/password.vue'
 import {ref} from 'vue'
 const checkResult = ref(true)
 const checkPassWord = (value)=>{
-  debugger
   if (value === 'zjh'){
     checkResult.value = false
   }
