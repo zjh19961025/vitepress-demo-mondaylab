@@ -14,7 +14,7 @@ export const nav = [
             },
             {
                 text: '所思·所想',
-                link: '/column/Growing/' // 表示docs/column/Growing/guide.md
+                link: '/Growing/guide' // 表示docs/column/Growing/guide.md
             }
         ]
     },

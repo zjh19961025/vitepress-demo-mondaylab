@@ -48,5 +48,13 @@ export const sidebar = {
                 { text: 'js读取json文件内容渲染数据', link: '/development/developmentTips_json' },
             ],
         },
-    ]
+    ],
+    '/Growing/':[
+        {
+            text: '',
+            items: [
+                { text: 'token过期自动部署失效', link: '/Growing/guide' },
+            ],
+        },
+    ],
 }
