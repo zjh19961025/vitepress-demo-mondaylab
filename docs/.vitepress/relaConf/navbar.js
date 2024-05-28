@@ -10,11 +10,11 @@ export const nav = [
         items: [
             {
                 text: '大江南北游记',
-                link: '/Travel/index' // 表示docs/column/Travel/guide.md
+                link: '/Travel/mine'
             },
             {
                 text: '所思·所想',
-                link: '/Growing/guide' // 表示docs/column/Growing/guide.md
+                link: '/Growing/guide'
             }
         ]
     },
