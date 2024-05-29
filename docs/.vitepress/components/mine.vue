@@ -20,7 +20,6 @@ import {ref} from 'vue'
 const checkResult = ref(true)
 const photoRef = ref(null)
 const checkPassWord = (value) => {
-  console.info('🚀 ~ file:mine method:checkPassWord line:23 -----',)
   if (value === 'zjh') {
     checkResult.value = false
   }
@@ -39,6 +38,13 @@ body {
 body {
   color: #999;
   font: 100%/18px helvetica, arial, sans-serif;
+}
+
+/* 仅适用于屏幕宽度不超过600px的设备 */
+@media (max-width: 600px) {
+  #mineContent {
+    height: 70% !important;
+  }
 }
 
 #mineContent {

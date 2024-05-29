@@ -8,20 +8,18 @@
             placement="top"
         >
           <el-card>
-            <div
-                slot="header"
-                class="clearfix"
-                v-text="items.time + '照片墙'"
-            ></div>
             <div class="img-list">
               <div
                   v-for="(item, j) in items.list"
                   :key="j"
                   class="img-item-con"
               >
+                <div class="imgTitle">{{ item.name }}</div>
                 <img
                     :src="item.src"
-                    class="avatar"/>
+                    class="avatar"
+                    alt=""
+                />
               </div>
             </div>
           </el-card>
@@ -36,32 +34,17 @@ import imgSrc from './imgSrc.json'
 
 const dataList = ref([
   {
-    time: '2019',
+    time: '我的猫',
     listSrc: [],
     list: imgSrc.cat
   },
   {
-    time: '2020',
+    time: '大学时光',
     listSrc: [],
     list: imgSrc.school
   },
   {
-    time: '2021',
-    listSrc: [],
-    list: imgSrc.family
-  },
-  {
-    time: '2021',
-    listSrc: [],
-    list: imgSrc.family
-  },
-  {
-    time: '2021',
-    listSrc: [],
-    list: imgSrc.family
-  },
-  {
-    time: '2021',
+    time: '家人时光',
     listSrc: [],
     list: imgSrc.family
   },
@@ -72,7 +55,6 @@ const dataList = ref([
   padding: 50px;
 }
 
-
 .img-list {
   &:after {
     content: "";
@@ -81,10 +63,15 @@ const dataList = ref([
   }
 
   .img-item-con {
-    width: 300px;
+    width: auto;
     float: left;
-    height: 240px;
+    height: 200px;
     padding: 10px;
+    margin-bottom: 20px;
+
+    .imgTitle {
+      color: #409EFF;
+    }
 
     img {
       transition: all 0.4s;
@@ -94,7 +81,11 @@ const dataList = ref([
 
     &:hover {
       img {
-        transform: scale(1.1);
+        transform: scale(1.2);
+      }
+
+      .imgTitle {
+        font-weight: bold;
       }
     }
   }
