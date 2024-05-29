@@ -19,7 +19,7 @@
                   :key="j"
                   class="img-item-con"
               >
-                <img src="../../../public/img/iconFont1.png" class="avatar"/>
+                <img :src="imgURL(item.src)" class="avatar"/>
               </div>
             </div>
           </el-card>
@@ -32,8 +32,10 @@
 import {ref} from 'vue'
 import imgSrc from './imgSrc.json'
 
-const getUrl = (item) => {
-  return new URL(item, import.meta.url)
+const BASE_URL = '/vitepress-demo-mondaylab/public/'
+
+const imgURL = (src) => {
+  return BASE_URL + src
 }
 const dataList = ref([
   {
