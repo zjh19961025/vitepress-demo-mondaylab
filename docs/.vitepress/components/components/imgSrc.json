@@ -2,7 +2,7 @@
   "cat": [
     {
       "name": "测试",
-      "src": "./img/1.jpg"
+      "src": "../../../public/img/vue3-1.png"
     },
     {
       "name": "奶七和三戈",
