@@ -19,7 +19,9 @@
                   :key="j"
                   class="img-item-con"
               >
-                <img :src="imgURL(item.src)" class="avatar"/>
+                <img
+                    :src="item.src"
+                    class="avatar"/>
               </div>
             </div>
           </el-card>
@@ -32,11 +34,6 @@
 import {ref} from 'vue'
 import imgSrc from './imgSrc.json'
 
-const BASE_URL = '/vitepress-demo-mondaylab/public/'
-
-const imgURL = (src) => {
-  return BASE_URL + src
-}
 const dataList = ref([
   {
     time: '2019',

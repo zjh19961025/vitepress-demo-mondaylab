@@ -2,31 +2,31 @@
   "cat": [
     {
       "name": "测试",
-      "src": "img/iconFont1.png"
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/iconFont.png"
     },
     {
       "name": "奶七和三戈",
-      "src": "img/map.png"
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/iconFont.png"
     }
   ],
   "school": [
     {
       "name": "测试",
-      "src": "img/iconFont1.png"
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/iconFont.png"
     },
     {
       "name": "奶七和三戈",
-      "src": "img/iconFont1.png"
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/iconFont.png"
     }
   ],
   "family": [
     {
       "name": "测试",
-      "src": "img/iconFont1.png"
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/iconFont.png"
     },
     {
       "name": "奶七和三戈",
-      "src": "img/iconFont1.png"
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/iconFont.png"
     }
   ]
 }

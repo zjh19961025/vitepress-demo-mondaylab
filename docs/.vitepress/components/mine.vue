@@ -20,6 +20,7 @@ import {ref} from 'vue'
 const checkResult = ref(true)
 const photoRef = ref(null)
 const checkPassWord = (value) => {
+  console.info('🚀 ~ file:mine method:checkPassWord line:23 -----',)
   if (value === 'zjh') {
     checkResult.value = false
   }
