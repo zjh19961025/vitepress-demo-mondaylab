@@ -1,0 +1,32 @@
+{
+  "cat": [
+    {
+      "name": "测试",
+      "src": "./img/1.jpg"
+    },
+    {
+      "name": "奶七和三戈",
+      "src": "./img/cat-01.jpg"
+    }
+  ],
+  "school": [
+    {
+      "name": "测试",
+      "src": "./img/1.jpg"
+    },
+    {
+      "name": "奶七和三戈",
+      "src": "./img/cat-01.jpg"
+    }
+  ],
+  "family": [
+    {
+      "name": "测试",
+      "src": "./img/1.jpg"
+    },
+    {
+      "name": "奶七和三戈",
+      "src": "./img/cat-01.jpg"
+    }
+  ]
+}

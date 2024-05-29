@@ -1,23 +1,26 @@
 <template>
-    <div id="mineContent">
-      <!-- 遮罩层 -->
-      <template v-if="checkResult">
-        <i class="iconfont suoshui lockIcon"></i>
-        <div class="overlay"></div>
-        <passwordCheck class="dialog" @change="checkPassWord"></passwordCheck>
-      </template>
-      <div v-else>
-        暂时还没有内容
-      </div>
+  <div id="mineContent">
+    <!-- 遮罩层 -->
+    <template v-if="checkResult">
+      <i class="iconfont suoshui lockIcon"></i>
+      <div class="overlay"></div>
+      <passwordCheck class="dialog" @change="checkPassWord"></passwordCheck>
+    </template>
+    <div v-else>
+      <photo ref="photoRef"></photo>
     </div>
+  </div>
 </template>
 
 <script setup>
 import passwordCheck from './components/password.vue'
+import photo from './components/photo.vue'
 import {ref} from 'vue'
+
 const checkResult = ref(true)
-const checkPassWord = (value)=>{
-  if (value === 'zjh'){
+const photoRef = ref(null)
+const checkPassWord = (value) => {
+  if (value === 'zjh') {
     checkResult.value = false
   }
 }
@@ -25,26 +28,27 @@ const checkPassWord = (value)=>{
 
 <style scoped>
 @import "docs/public/css/iconfont.css";
+
 html,
 body {
   margin: 0;
   padding: 0;
-  overflow-y: hidden;
 }
 
 body {
-  background: #171717;
   color: #999;
   font: 100%/18px helvetica, arial, sans-serif;
 }
 
 #mineContent {
   position: fixed;
-  height: 100%;
+  height: 80%;
   left: 0;
   top: 64px;
   width: 100%;
   z-index: 20;
+  overflow-y: auto;
+
   .overlay {
     position: fixed;
     top: 0;
@@ -54,7 +58,8 @@ body {
     background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
   }
-  .lockIcon{
+
+  .lockIcon {
     font-size: 100px;
     position: fixed;
     top: 40%;
@@ -63,6 +68,7 @@ body {
     transform: translate(-50%, -50%);
     z-index: 1001;
   }
+
   .dialog {
     position: fixed;
     top: 50%;
