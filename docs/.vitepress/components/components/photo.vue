@@ -19,7 +19,7 @@
                   :key="j"
                   class="img-item-con"
               >
-                <img :src="getUrl(item.src)" alt="">
+                <img src="../../../public/img/iconFont1.png" class="avatar"/>
               </div>
             </div>
           </el-card>
@@ -35,7 +35,6 @@ import imgSrc from './imgSrc.json'
 const getUrl = (item) => {
   return new URL(item, import.meta.url)
 }
-console.info('🚀 ~ file:photo method: line:42 -----', imgSrc)
 const dataList = ref([
   {
     time: '2019',
