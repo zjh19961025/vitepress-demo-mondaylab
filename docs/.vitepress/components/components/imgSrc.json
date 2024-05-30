@@ -1,12 +1,20 @@
 {
   "cat": [
     {
-      "name": "测试",
-      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/myCat/img.png"
+      "name": "镜头下两只睡觉的猫咪",
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/myCat/cat-1.png"
     },
     {
-      "name": "奶七和三戈",
-      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/iconFont.png"
+      "name": "一条三戈",
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/cat-2.png"
+    },
+    {
+      "name": "上下床猫咪",
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/cat-3.png"
+    },
+    {
+      "name": "就爱黏在一起",
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/cat-4.png"
     }
   ],
   "school": [
@@ -21,12 +29,16 @@
   ],
   "family": [
     {
-      "name": "测试",
-      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/iconFont.png"
+      "name": "小可爱",
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/family/gilrFrend.png"
     },
     {
-      "name": "奶七和三戈",
-      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/iconFont.png"
+      "name": "摩天轮",
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/family/FerrisWheel.png"
+    },
+    {
+      "name": "海洋馆",
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/family/ocean-1.png"
     }
   ]
 }
