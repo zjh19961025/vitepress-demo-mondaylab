@@ -6,25 +6,33 @@
     },
     {
       "name": "一条三戈",
-      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/cat-2.png"
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/myCat/cat-2.png"
     },
     {
       "name": "上下床猫咪",
-      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/cat-3.png"
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/myCat/cat-3.png"
     },
     {
       "name": "就爱黏在一起",
-      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/cat-4.png"
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/myCat/cat-4.png"
     }
   ],
   "school": [
     {
-      "name": "测试",
-      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/iconFont.png"
+      "name": "宿舍所有人",
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/school/allPeople.png"
     },
     {
-      "name": "奶七和三戈",
-      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/iconFont.png"
+      "name": "宿舍大酒量",
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/school/dfc.png"
+    },
+    {
+      "name": "宿舍小渣渣",
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/school/zzm.png"
+    },
+    {
+      "name": "我和学霸",
+      "src": "https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/school/iandjm.png"
     }
   ],
   "family": [
