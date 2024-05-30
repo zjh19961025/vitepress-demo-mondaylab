@@ -19,6 +19,7 @@
                     :src="item.src"
                     class="avatar"
                     alt=""
+                    @click.capture="showPreview(item.src)"
                 />
               </div>
             </div>
@@ -27,11 +28,41 @@
       </template>
     </el-timeline>
   </div>
+  <el-dialog
+      v-model="dialogVisible"
+      width="500"
+  >
+    <div v-watermark="watermarkOption">
+      <img
+          :src="previewSrc"
+          class="avatar"
+          alt=""
+      />
+    </div>
+  </el-dialog>
 </template>
 <script setup>
 import {ref} from 'vue'
 import imgSrc from './imgSrc.json'
+import vWatermark from './directive/watermark'
 
+const watermarkOption = {
+  text: 'ZJH'
+}
+
+const listSrc = ref([])
+Object.keys(imgSrc).forEach(category => {
+  imgSrc[category].forEach(item => {
+    listSrc.value.push(item.src)
+  })
+})
+const dialogVisible = ref(false)
+const previewSrc = ref('')
+const showPreview = (src) => {
+  previewSrc.value = src
+  dialogVisible.value = true
+
+}
 const dataList = ref([
   {
     time: '我的猫',

@@ -1,13 +1,21 @@
 <script setup>
-import { ref,toValue } from "vue";
+import {ref, toValue, onMounted, nextTick} from 'vue'
+
+const inputRef = ref(null)
 const password = ref('')
+onMounted(() => {
+  nextTick(() => {
+    inputRef.value.focus()
+  })
+})
 const emit = defineEmits(['change'])
-const passwordChange = ()=>{
-  emit('change',toValue(password))
+const passwordChange = () => {
+  emit('change', toValue(password))
 }
 </script>
 <template>
-  <input type="password" @input="passwordChange" v-model="password" placeholder="Password" name="text" class="input">
+  <input ref="inputRef" type="password" @input="passwordChange" v-model="password" placeholder="Password" name="text"
+         class="input">
 </template>
 <style scoped>
 .input {
