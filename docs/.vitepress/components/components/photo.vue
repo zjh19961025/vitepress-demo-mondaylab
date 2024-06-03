@@ -1,5 +1,5 @@
 <template>
-  <div class="photo-wall">
+  <div class="photo-wall" v-watermark="watermarkOption">
     <el-timeline>
       <template v-for="(items, i) in dataList">
         <el-timeline-item
@@ -32,7 +32,7 @@
       v-model="dialogVisible"
       width="500"
   >
-    <div v-watermark="watermarkOption">
+    <div>
       <img
           :src="previewSrc"
           class="avatar"

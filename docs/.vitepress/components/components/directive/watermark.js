@@ -53,8 +53,8 @@ async function createWatermark(el, text) {
         el.appendChild(canvasEl)
     }
 
-    canvasEl.width = window.screen.width * 3
-    canvasEl.height = window.screen.height * 3
+    canvasEl.width = window.screen.width * 0.9
+    canvasEl.height = window.screen.height * 0.9
     const ctx = canvasEl.getContext('2d')
     if (!ctx) return
 
