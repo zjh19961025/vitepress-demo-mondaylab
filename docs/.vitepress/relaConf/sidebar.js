@@ -47,6 +47,7 @@ export const sidebar = {
                 {text: '对象数组去重', link: '/development/developmentTips_arrayUnique'},
                 {text: 'js读取json文件内容渲染数据', link: '/development/developmentTips_json'},
                 {text: '包管理工具设置镜像', link: '/development/developmentTips_mirror'},
+                {text: '封装表格表单组件', link: '/development/developmentTips_tableForm'},
             ],
         },
     ],
