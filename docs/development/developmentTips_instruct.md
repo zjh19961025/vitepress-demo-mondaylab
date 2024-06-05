@@ -143,78 +143,73 @@ export default debounce
 
 ```js
 <template>
-  <div>
-    <button v-copy="copyTexts">复制</button>
-  </div>
+  <div v-copy="copyvalue">点击复制</div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      copyTexts: "复制的内容",
-    };
-  },
-};
+ 
+<script setup>
+import { ref } from 'vue'
+const copyvalue = ref('点击复制哈哈哈 ')
 </script>
-
-<style scoped lang="less"></style>
 ```
 
 实现代码
 
 ```
-
 const copy = {
-  bind(el, {
-    value
-  }) {
-    el.$value = value
-    el.handler = () => {
-      if (!el.$value) {
-        // 值为空的时候，给出提示。可根据项目UI仔细设计
-        console.log('无复制内容')
-        return
-      }
-      // 动态创建 textarea 标签
-      const textarea = document.createElement('textarea')
-      // 将该 textarea 设为 readonly 防止 iOS 下自动唤起键盘，同时将 textarea 移出可视区域
-      textarea.readOnly = 'readonly'
-      textarea.style.position = 'absolute'
-      textarea.style.left = '-9999px'
-      textarea.style.width = 0
-      textarea.style.height = 0
+    beforeMount(el, binding) {
+        el.targetContent = binding.value
+        el.addEventListener('click', () => {
+            if (!el.targetContent) return console.warn('没有需要复制的目标内容')
+            // 创建textarea标签
+            const textarea = document.createElement('textarea')
+            // 设置相关属性
+            textarea.readOnly = 'readonly'
+            textarea.style.position = 'fixed'
+            textarea.style.top = '-99999px'
+            // 把目标内容赋值给它的value属性
+            textarea.value = el.targetContent
+            // 插入到页面
+            document.body.appendChild(textarea)
+            // 调用onselect()方法
+            textarea.select()
 
-      // 将要 copy 的值赋给 textarea 标签的 value 属性
-      textarea.value = el.$value
-      // 将 textarea 插入到 body 中
-      document.body.appendChild(textarea)
-      // 选中值并复制
-      textarea.select()
-      const result = document.execCommand('Copy')
-
-      if (result) {
-        console.log('复制成功:', textarea.value) // 可根据项目UI仔细设计
-      }
-      document.body.removeChild(textarea)
+            const success = binding.arg
+            // 把目标内容复制进剪贴板, 该API会返回一个Boolean
+            const res = document.execCommand('Copy')
+            res && success ? success(el.targetContent) : ''
+            // 移除textarea标签
+            document.body.removeChild(textarea)
+        })
+    },
+    updated(el, binding) {
+        // 实时更新最新的目标内容
+        el.targetContent = binding.value
+    },
+    unmounted(el) {
+        el.removeEventListener('click', () => {
+        })
     }
-    // 绑定点击事件，就是所谓的一键 copy 啦
-    el.addEventListener('click', el.handler)
-  },
-  // 当传进来的值更新的时候触发
-  componentUpdated(el, {
-    value
-  }) {
-    el.$value = value
-  },
-  // 指令与元素解绑的时候，移除事件绑定
-  unbind(el) {
-    el.removeEventListener('click', el.handler)
-  },
 }
-
 export default copy
 ```
+
+如果复制之后还有其他操作，需要个回调方法做其他事情：v-copy:[回调函数]="要复制的数据"
+
+```vue
+<template>
+  <div v-copy:[success]="copyvalue">点击复制</div>
+</template>
+ 
+<script setup>
+import { ref } from 'vue'
+const copyvalue = ref('点击复制哈哈哈 ')
+const success = (val) => {
+  console.log('内容是', val)
+}
+</script>
+```
+
+
 
 ## v-emoji
 
