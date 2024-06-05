@@ -404,3 +404,38 @@ export function getUserDescribe(name: string, uUser: string, userImg: {value:str
  2：getUserDescribe(name, uUser, userImg);
 ```
 
+## 四、赋值逻辑优化
+
+你是否还在这样赋值？
+
+```js
+const getUserInfo = async() => {
+  const [err, res] = await getInfo()
+  	form.value.avatar = res.avatar
+    form.value.name = res.name
+    form.value.phone = res.phone
+    form.value.email = res.email
+    form.value.id = res.id
+    form.value.roleId = res.roleId
+}
+```
+
+优化后：
+
+```js
+const getUserInfo = async() => {
+  const [err, res] = await getInfo()
+  const { avatar, name, phone, email, id, roleId } = res
+  Object.assign(form.value, { avatar, name, phone, email, id, roleId })
+}
+```
+
+```js
+const resetForm = () => {
+  for (const key in form) {
+    form[key] = ''
+  }
+  ruleFormRef.value?.resetFields()
+}
+```
+
