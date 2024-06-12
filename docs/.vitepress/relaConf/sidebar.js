@@ -48,6 +48,7 @@ export const sidebar = {
                 {text: 'js读取json文件内容渲染数据', link: '/development/developmentTips_json'},
                 {text: '包管理工具设置镜像', link: '/development/developmentTips_mirror'},
                 {text: '封装表格表单组件', link: '/development/developmentTips_tableForm'},
+                {text: '使用element ui tree遇到的坑', link: '/development/developmentTips_tree'},
             ],
         },
     ],
@@ -56,6 +57,7 @@ export const sidebar = {
             text: '',
             items: [
                 {text: 'token过期自动部署失效', link: '/Growing/guide'},
+                {text: 'pnpm修改node_modules并生效', link: '/Growing/pnpm'},
             ],
         },
     ],
