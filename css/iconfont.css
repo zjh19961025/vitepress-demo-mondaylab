@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 4564834 */
+  src:
+       url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAATsAAsAAAAACXQAAASdAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHFQGYACCfAqGVIV0ATYCJAMMCwgABCAFhGcHOxtLCFFUTWpkPyRJxhJlj2kSVAhiwgARhGABAAAAACKo3w/d++8FABSij4sGFDIqLposkLGsktL4KvZVtbUEf9/lL5+t1lQR6pZkbjX1rbTXW+1LcwyN8XgexuAQEofFKIbe881tTgqlfQKucyF/jU42JzMQzF/CH/cr3rJI0LcJIBmJZR9sbYEXLKruevzAbw6U7iyvRfFqskQ1ZzwjUGvOnrGls5t7mN3NpIdNE1h7ECtj1+gMZnqjvEAJ1ZpK6NIsrvSnOC7eQFza348vGmIQhYqE7bK6c1rC13e8LPsSJQFJn+g2AQ8vUIGEqTMzx+ayc9m4T04ZVzvlnDBAElmwV4kWnvc/HkFUYsp6jBtTFHdIJLmEiGvRfRd1Sk96SAuIURAHwPDtamtV/c5AJRlZSvXxMpFQnKUCIGsmCkiOoxgGgVKHkD7EYUxMHwV9ySMCQPI8zbIIDKUPT9IPoRhreMOGdevww7aja0VuMLEeX4/RT88C0nnCtSdB26KVjcHyt1j+uq0/3mwMkHdf0s9vIzzEOlREbVgn37h+9HokvIFSHKpikKPTj/fcy07dAGTtydrj1ccPG0pRHHd21xIM46UuHSOOX6avngTkjiMX/NSTCk6p5Jyci+cF2cGyu9kZu2Kd/dCj6HrHYbqSV7118U5u0WZnGMzD72cRuinnhZINW7YexPc3s9ip62IptnH/5k0K9FAT0whO5ZnVcPRoOA/zTL7anCcsEIal2NYcN5eWqNUlRsqj4VKzuW5BTN9P3Nx0+2BWU0X5+Ixs/z04TTAVrh6c0/02p6TBOPl3XAIbSwIjRwZKkpRHeSG/EUoUVxVhqcqztX17q/Mt/y35XiH773TVkOVUVmg0FU7CM7tUQhiGhRm7R+zOKIQ7Vw5cMjBPqsN2hQwfLhk+Z3KDsSTnbXfX0fRFv3dRg59w/v7tPIGHH4D87gqNNTXGYI3JWB00VVebgtVGU02NLPPP8dYTv1s/nMjEv14NyfPzH07evMJZALXyoCyQ6c30L18cVPlUfpXmeXlmVSP3y0O9moIk4MrJD/t8fbZywRPzk1ULn3ZKDGItrlHqJozWy7UyjYzqJozOvhXXiLVig/7el9Exe85LHYcX9T+eLnTpL9bvr8/Wtt/B89c/24vg44OtH1JsZFodRygf0/746L/cMM3Tn4tDTV3fqut+hh2fZ3YuWX/5mMHcoPoLcQZ/MJUfiJiHEClPCaVwIZO8gn59RrXRUmLeVr/bq9vASv9ddVuEQpU+SKoNoDJuAirUWYBK1Rah1qTT1XXaOOMi12DEG4LQ7AMKjV5C0uwblXE/UKHTH1Rq9g+1tkO4XZ2RiB0zZUIl5q9oCtsroRHb7S3poc14LPZI7A2OYBxEZeaceuJdzPBPOhFRqNh2eNaeRm1r0bGtqZCgEnFbYaimviQobAfHGMkIUkK5V8goWD2lkSX/e7eINmhlGIh6tDNPBaR7FAtEANS5sgc1PZPe3hMtIYSioxRmddDZYCctT1rITQ+qkYIIVFvEnS0hQVJQZXB8dffiqr2CLdgdKYpIkVXtDdZXg5mOm14/kwEAAAAA') format('woff2'),
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.suoshui:before {
+  content: "\e615";
+}
+
+
+.dingwei:before {
+  content: "\101a9";
+}
+

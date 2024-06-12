@@ -1,0 +1,1 @@
+import{aw as s,q as i,p as a,aS as n}from"./chunks/framework.Z07w7uvf.js";const g=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"views/study.md","filePath":"views/study.md"}'),l={name:"views/study.md"},t=n("",26),h=[t];function p(e,k,d,E,r,c){return a(),i("div",null,h)}const y=s(l,[["render",p]]);export{g as __pageData,y as default};
