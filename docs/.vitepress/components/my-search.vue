@@ -15,12 +15,12 @@ const menuList = ref([
   {
     name: '外贸官网',
     link: 'https://flowermi.com/page/?lang=zh',
-    img: 'http://192.168.31.5/pages//dev-home/img/hua5-logo-trade.png'
+    img: 'https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/hua5Logo.png'
   },
   {
     name: '花伍后台',
     link: 'https://group.hua5.com/hua5x-group-admin/827e7cfc-1bde-11ee-9630-0242ac13000b/#/login',
-    img: 'http://192.168.31.5/pages//dev-home/img/hua5-logo-z.jpg'
+    img: 'https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/hua5Manerger.png'
   },
   {
     name: '自用GPT',
