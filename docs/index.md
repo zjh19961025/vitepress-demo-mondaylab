@@ -11,22 +11,22 @@ editLink: true
 lastUpdated: true
 
 hero:
-    name: 小辉同学
-    text: Just do it.
-    tagline: /斜杠青年/人间清醒/工具控/
-    image:
-        # 首页右边的图片
-        src: /avatar.png
-        # 图片的描述
-        alt: avatar
-    # 按钮相关
-    actions:
+  name: 小辉同学
+  text: Just do it.
+  tagline: /斜杠青年/人间清醒/工具控/
+  image:
+    # 首页右边的图片
+    src: /avatar.png
+    # 图片的描述
+    alt: avatar
+  # 按钮相关
+  actions:
     - theme: brand
       text: 进入主页
       link: /views/guide
     - theme: alt
       text: 个人成长
-      link: /column/Growing/
+      link: /mySearch/mySearch
 # 按钮下方的描述
 features:
   - icon: 🤹
