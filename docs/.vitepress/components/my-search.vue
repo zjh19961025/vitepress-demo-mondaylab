@@ -25,7 +25,7 @@ const menuList = ref([
   {
     name: '自用GPT',
     link: 'http://192.168.31.5:3002/',
-    img: 'http://192.168.31.5/pages//dev-home/img/chat_gpt.png'
+    img: 'https://raw.githubusercontent.com/zjh19961025/vitepress-demo-mondaylab/master/docs/public/img/gpt.png'
   },
   {
     name: 'GODGPT',
