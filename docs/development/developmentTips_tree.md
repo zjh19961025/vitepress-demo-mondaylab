@@ -50,5 +50,17 @@ filterNode(value, data, node) {
       }
     }
    }
+
+    // 改变节点的状态
+    changeTreeNodeStatus(node) {
+      for (let i = 0; i < node.childNodes.length; i++) {
+        // 改变节点的自身expanded状态
+        node.childNodes[i].expanded = this.expandAll
+        // 遍历子节点
+        if (node.childNodes[i].childNodes.length > 0) {
+          this.changeTreeNodeStatus(node.childNodes[i])
+        }
+      }
+    },
 ```
 
