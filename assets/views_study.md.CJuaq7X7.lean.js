@@ -1,0 +1,1 @@
+import{ax as s,q as i,p as a,aS as n}from"./chunks/framework.CuTDW7En.js";const g=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"views/study.md","filePath":"views/study.md"}'),t={name:"views/study.md"},l=n("",26),h=[l];function e(p,k,d,E,r,c){return a(),i("div",null,h)}const y=s(t,[["render",e]]);export{g as __pageData,y as default};

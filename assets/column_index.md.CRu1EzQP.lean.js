@@ -1,0 +1,1 @@
+import{ax as s,q as i,p as a,aS as n}from"./chunks/framework.CuTDW7En.js";const c=JSON.parse('{"title":"基础类型","description":"","frontmatter":{},"headers":[],"relativePath":"column/index.md","filePath":"column/index.md"}'),h={name:"column/index.md"},t=n("",56),p=[t];function l(k,e,d,r,E,g){return a(),i("div",null,p)}const o=s(h,[["render",l]]);export{c as __pageData,o as default};
