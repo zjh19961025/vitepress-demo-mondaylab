@@ -197,16 +197,14 @@
 命令式组件封装是一种将功能封装在组件内部，并通过命令式的方式进行调用和控制的封装方法。在命令式组件封装中，组件负责封装一定的功能逻辑，并提供一组接口或方法，供外部代码调用来触发和控制组件的行为。调用方式大致为：
 
 ```js
-MessageBox({
-  title: '这是标题',
-  content: '这是内容',
-  confirmContent: '确定',
-  cancelContent: '取消'
-}).then(() => {
-  console.log('comfirm');
-}).catch(() => {
-  console.log('cancel');
-})
+async function showMsg(){
+    const [,res]= await msgBox('测试内容'，{type:'success',iconType:'question'})
+    if(res){
+        consloe.log('点击了确定')
+    }else{
+        console.log('点击了取消')
+    }
+}
 ```
 
 ### 三、开始封装
@@ -214,202 +212,233 @@ MessageBox({
 首先创建一个`MessageBox.vue`文件，编写组件样式代码，这里我使用的是`tailwindCSS`进行编写。
 
 ```vue
-<Transition name="message-fade">
-  <div class="w-full h-full bg-[rgba(0,0,0,.5)] fixed top-0 left-0 " v-show="isVisible">
-    <div
-      class=" z-10 w-[500px] h-[150px] rounded-md bg-white absolute top-1/2 left-1/2 -ml-[250px] -mt-[75px] p-3 flex flex-col">
-      <div class="flex justify-between items-center h-[30px]">
-        <p class="text-xl">{{ title }}</p>
-        <img :src="CloseIcon" alt="" class="w-4 h-4  cursor-pointer" @click="handleCancel">
+<script lang="ts" setup>
+import { computed, onMounted, ref } from "vue"
+import { ElButton, ElDialog } from 'element-plus'
+export interface HuiMsgBoxProp {
+  /** 控制图标展示类型 info:叹号 success:钩 question:问号 */
+  iconType:'info' | 'success' | 'question',
+  /** 控制图标展示的颜色 */
+  type:'info' | 'warning' | 'success' | 'danger',
+  /** 弹窗显示的内容 */
+  content:string,
+  /** 取消按钮的文本 */
+  cancelText:string,
+  /** 确定按钮的文本 */
+  confirmText:string,
+  /** 关闭事件 */
+  closeBox: ()=> void,
+  /** 确定事件事件 */
+  confirmHandler:()=> void,
+  /** 取消事件 */
+  cancelHandler:()=> void,
+}
+const { iconType, type, content, cancelText, confirmText, closeBox, confirmHandler, cancelHandler } = withDefaults(defineProps<HuiMsgBoxProp>(), {
+  iconType: 'info',
+  type: 'info',
+  cancelText: '取消',
+  confirmText: '确定',
+})
+
+const iconTypeClass = computed<string>(() => {
+  const iconTypeClassList = {
+    info: 'text-disabled',
+    warning: 'text-warning',
+    success: 'text-success',
+    danger: 'text-danger',
+  }
+  return iconTypeClassList[type]
+})
+
+const iconColorClass = computed<string>(() => {
+  const iconColorClassList = {
+    info: 'i-com-gantanhao',
+    success: 'i-com-gou1',
+    question: 'i-com-wenhao',
+  }
+  return iconColorClassList[iconType]
+})
+
+// 控制显示处理
+const isVisible = ref(false)
+/**
+ * 组件展示
+ */
+const show = () => {
+  isVisible.value = true
+}
+
+/**
+ * 处理动画 (render 函数的渲染，会直接进行)
+ */
+onMounted(() => {
+  show()
+})
+
+/**
+ * 取消事件
+ */
+const onCancelClick = () => {
+  if (cancelHandler) {
+    cancelHandler()
+  }
+  close()
+}
+
+/**
+ * 确定事件
+ */
+const onConfirmClick = () => {
+  if (confirmHandler) {
+    confirmHandler()
+  }
+  closeBox()
+}
+
+// 关闭动画处理时间
+const duration = '0.5s'
+/**
+ * 关闭事件,保留动画执行时长
+ */
+const close = () => {
+  isVisible.value = false
+  // 延迟一段时间进行关闭
+  setTimeout(() => {
+    if (closeBox) {
+      closeBox()
+    }
+  }, parseInt(duration.replace('0.', '').replace('s', '')) * 100)
+}
+</script>
+
+<template>
+  <div class="hua5-message-box">
+    <ElDialog
+      v-model="isVisible"
+      width="400"
+      @closed="close"
+    >
+      <div class="flex justify-center flex-center h-110">
+        <div>
+          <i :class="[iconTypeClass,iconColorClass,'icon-com !text-27']" />
+        </div>
+        <div class="text-14 font-bold text-normal ml-11">{{ content }}</div>
       </div>
-      <div class="flex-[1] py-2">
-        <p class="text-sm text-gray-500">{{ content }}</p>
-      </div>
-      <div class="h-[40px] flex justify-end items-center">
-        <button class="text-white p-1 bg-green-500 w-[50px] text-sm mr-2" @click="handleComfirm">{{ confirmContent
-        }}</button>
-        <button class=" p-1 bg-white text-sm border-[1px] border-solid border-[#ccc] w-[50px]" @click="handleCancel">{{
-          cancelContent }}</button>
-      </div>
-    </div>
+      <template #footer>
+        <div class="dialog-footer">
+          <ElButton class="!text-primary !border !border-1 !border-primary" @click="onCancelClick">{{ cancelText }}</ElButton>
+          <ElButton type="primary" class="w-100px" @click="onConfirmClick">{{ confirmText }}</ElButton>
+        </div>
+      </template>
+    </ElDialog>
   </div>
-</Transition>
+</template>
+
+<style lang="scss">
+.hua5-message-box{
+  .el-dialog{
+    border-radius: 8px !important;
+  }
+  .el-dialog .el-dialog__header{
+    background-color: #fff !important;
+  }
+  .el-dialog .el-dialog__footer{
+    background-color: #fff !important;
+  }
+}
+</style>
 ```
 
-组件过渡样式代码：
-
-```css
-.message-fade-enter-from,
-.message-fade-leave-to {
-  opacity: 0;
-}
-
-.message-fade-enter-active {
-  transition: opacity .2s ease-in;
-}
-
-.message-fade-leave-active {
-  transition: opacity .2s ease-out;
-}
-```
-
-组件需要接收参数有`title`(标题)、`content`(内容)、`confirmContent`(确认按钮文本)、`cancelContent`(取消按钮文本)。
+组件需要接收参数
 
 ```ts
-interface IProps {
-  title: string
-  content: string
-  confirmContent: string
-  cancelContent: string
+export interface HuiMsgBoxProp {
+  /** 控制图标展示类型 info:叹号 success:钩 question:问号 */
+  iconType:'info' | 'success' | 'question',
+  /** 控制图标展示的颜色 */
+  type:'info' | 'warning' | 'success' | 'danger',
+  /** 弹窗显示的内容 */
+  content:string,
+  /** 取消按钮的文本 */
+  cancelText:string,
+  /** 确定按钮的文本 */
+  confirmText:string,
+  /** 关闭事件 */
+  closeBox: ()=> void,
+  /** 确定事件事件 */
+  confirmHandler:()=> void,
+  /** 取消事件 */
+  cancelHandler:()=> void,
 }
-
-defineProps<IProps>()
-```
-
-我们需要定义变量`isVisible`和`type`。`isVisible`用来控制组件的显示和隐藏，`type`用来判断点击的按钮类型(`comfirm / cancel`)。
-
-```js
-const state = reactive({
-  isVisible: false,
-  type: ''
-})
-
-const {isVisible,type} = toRefs(state)
-```
-
-为了能够改变组件的显隐，编写一个`setVisible`方法。
-
-```js
-/**
- * 改变组件显隐
- * @param value true(显示) / false(隐藏)
- */
-const setVisible = (value: boolean) => {
-  isVisible.value = value
-}
-```
-
-给确定按钮和取消按钮添加点击事件。
-
-```js
-/**
- * 确认
- */
-const handleComfirm = () => {
-  isVisible.value= false
-  type.value = 'comfirm'
-}
-
-/**
- * 取消
- */
-const handleCancel = () => {
-  isVisible.value= false
-  type.value  = 'cancel'
-}
-```
-
-暴露响应式对象和控制显隐函数，供组件实例调用。
-
-```js
-defineExpose({
-  setVisible,
-  state
-})
 ```
 
 其次创建`index.ts`文件，由于组件调用方式是通过一个函数进行调用的，并提供`.then`和`.catch`方法，所以需要编写一个函数，该函数返回一个Promise。当调用该函数，创建组件实例，组件进行挂载。
 
 ```ts
-/**
- * 
- * @param config 组件配置
- * @returns Promise
- */
-const MessageBox = (config) => {
-  // 创建组件实例
-  const messageApp = createApp(MessageBoxComponent, config)
+import { h, render } from 'vue'
+import confirmComponent from './message-box.vue'
+import { to } from "@hua5/hua5-utils"
 
-  return new Promise((resolve, reject) => {
-    showMessage(messageApp, { resolve, reject })
-  })
+export interface PayLoadType {
+  /** 控制图标展示类型 info:叹号 success:钩 question:问号 */
+  iconType?:'info' | 'success' | 'question',
+  /** 控制图标展示的颜色 */
+  type?: "info" | "success" | "danger" | "warning",
+  /** 取消按钮的文本 */
+  cancelText?:string,
+  /** 确定按钮的文本 */
+  confirmText?:string
 }
-
-/**
- * 展示组件
- * @param app 组件实例
- * @param param1 
- */
-const showMessage = (app, { resolve, reject }) => {
-  // 创建文档碎片
-  const dFrag = document.createDocumentFragment()
-  // 将组件挂载在文档碎片上
-  const vm = app.mount(dFrag)
-  // 组件显示
-  vm.setVisible(true)
-  document.body.appendChild(dFrag)
-}
-```
-
-目前就可以通过命令式进行调用组件，但是发现了一个问题，我们打开控制台，发现DOM元素不断的变多。原因是因为我们通过函数调用，不断创建新的DOM元素，所以需要对state进行监视，当组件呈隐藏状态，通过type来判断点击的是确定还是取消按钮，如果是点击确定按钮，调用resolve，否则调用reject，最后将组件进行卸载。
-
-```js
-/**
- * 展示组件
- * @param app 组件实例
- * @param param1 
- */
-const showMessage = (app, { resolve, reject }) => {
-  // 创建文档碎片
-  const dFrag = document.createDocumentFragment()
-  // 将组件挂载在文档碎片上
-  const vm = app.mount(dFrag)
-  // 组件显示
-  vm.setVisible(true)
-  document.body.appendChild(dFrag)
-
-  watch(vm.state, (state) => {
-    if (!state.isVisible) {
-      switch (state.type) {
-        case 'comfirm':
-          resolve()
-          break;
-        case 'cancel':
-          reject()
-          break;
-      }
-      hideMessage(app)
+export const hua5MsgBox = (content: string, payLoad:PayLoadType = {}) => {
+  const { iconType = 'info', type = 'info', cancelText, confirmText } = payLoad
+  return new Promise((resolve) => {
+    // 取消按钮事件
+    const cancelHandler = () => {
+      resolve(false)
     }
+
+    // 确定按钮事件
+    const confirmHandler = () => {
+      resolve(true)
+    }
+
+    // 关闭弹层事件
+    const closeBox = () => {
+      render(null, document.body)
+    }
+
+    // 1. 生成 vnode
+    const vnode = h(confirmComponent, {
+      content,
+      iconType,
+      type,
+      cancelText,
+      confirmText,
+      cancelHandler,
+      confirmHandler,
+      closeBox,
+    })
+
+    // 2. render 渲染
+    render(vnode, document.body)
   })
 }
 
-/**
- * 卸载组件
- * @param app 组件实例
- */
-const hideMessage = (app) => {
-  app.unmount()
+export const msgBox = (content: string, payLoad?:PayLoadType) => {
+  return to(hua5MsgBox(content, payLoad))
 }
 ```
 
-### 四、组件调用
+### 四、to函数
 
-我们通过函数进行调用，当前点击确定按钮，执行`.then`里的逻辑，例如发送请求等业务，否则执行`.catch`里的逻辑。
-
-```js
-MessageBox({
-  title: '这是标题',
-  content: '这是内容',
-  confirmContent: '确定',
-  cancelContent: '取消'
-}).then(() => {
-  console.log('comfirm');
-}).catch(() => {
-  console.log('cancel');
-})
+```typescript
+/**
+ * @param { Promise } promise
+ * @param { Object= } errorExt - Additional Information you can pass to the err object
+ * @return { Promise }
+ */
+export function to(promise: Promise<any>): Promise<any> {
+  return promise.then(res => [null, res]).catch(error => [error, null])
+}
 ```
-
-### 五、组件扩展
-
-弹窗组件里的content区域不一定是一段提示语，也有可能是一个表单，我们可以在MessageBox.vue(或者可以创建一个新的文件)里编写一个组件函数contentView，该函数接收一个type参数，通过这个type进行判断并利用h函数显示，然后在模板中调用传值即可，这里就不给大家实现了。
 
