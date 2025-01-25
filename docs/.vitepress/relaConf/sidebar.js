@@ -50,6 +50,7 @@ export const sidebar = {
                 {text: '封装表格表单组件', link: '/development/developmentTips_tableForm'},
                 {text: '使用element ui tree遇到的坑', link: '/development/developmentTips_tree'},
                 {text: 'new URL使用技巧', link: '/development/developmentTips_newUrl'},
+                {text: 'h5跳转小程序', link: '/development/developmentTips_h5ToMp'},
             ],
         },
     ],
