@@ -29,6 +29,7 @@ export const sidebar = {
                 {text: 'Vue3.0 Proxy', link: '/interview/proxy'},
                 {text: 'webpack的理解', link: '/interview/webpack'},
                 {text: 'new Set和new Map的区别', link: '/interview/setAndMap'},
+                {text: '面试题中常见的问题', link: '/interview/issue'},
             ],
         },
     ],
