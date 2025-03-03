@@ -13,7 +13,7 @@ git init
 git add -A
 git commit -m '部署git-page'
 
-git push -f git@github.com:zjh19961025/vitepress-demo-mondaylab.git master:gh-pages
+git push -f git@github.com:zjh19961025/zhujh-blog.git master:gh-pages
 
 # 返回上一级目录
 cd ..

@@ -7,7 +7,7 @@ import {sidebar} from './relaConf/sidebar.js'
 export const globals = [
 ]
 export default defineConfig({
-  base: '/vitepress-demo-mondaylab/',
+  base: '/zhujh-blog/',
   title: '小辉同学',
   description: "Default Theme",
   themeConfig: {
