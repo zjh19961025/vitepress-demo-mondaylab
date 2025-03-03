@@ -1,0 +1,1 @@
+import{_ as i,c as a,o as n,b0 as l}from"./chunks/framework.CF2ItCMi.js";const o=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"views/study.md","filePath":"views/study.md"}'),t={name:"views/study.md"};function h(e,s,p,k,d,E){return n(),a("div",null,s[0]||(s[0]=[l("",26)]))}const c=i(t,[["render",h]]);export{o as __pageData,c as default};
