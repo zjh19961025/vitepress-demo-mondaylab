@@ -52,6 +52,7 @@ export const sidebar = {
                 {text: '使用element ui tree遇到的坑', link: '/development/developmentTips_tree'},
                 {text: 'new URL使用技巧', link: '/development/developmentTips_newUrl'},
                 {text: 'h5跳转小程序', link: '/development/developmentTips_h5ToMp'},
+                {text: '生成代码片段', link: '/development/developmentTips_CodeSnippets'},
             ],
         },
     ],
